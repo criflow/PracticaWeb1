@@ -1,13 +1,13 @@
 
-import org.jsoup.select.Elements;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.Scanner;
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
@@ -20,21 +20,21 @@ public class Main {
         String direccion = scanner.nextLine();
 
         try{
-            document = Jsoup.parse(url);
+            document = Jsoup.parse(direccion);
 
-            document = Jsoup.connect(url).get();
+            document = Jsoup.connect(direccion).get();
 
-            Connection.Response doc = Jsoup.connect(url).execute();
-            cuerpo = doc.body();
+            Connection.Response doc = Jsoup.connect(direccion).execute();
+            String cuerpo = doc.body();
 
             int cant_img;
 
             Elements elements = document.select("p img");
             cant_img = elements.size();
 
-            Elements elements = document.select("p");
-            int cant_parrafos = elements.size();
-            System.out.println("Cantidad de lineas: " +   cuerpo.split("\n").length));
+            Elements elementsP = document.select("p");
+            int cant_parrafos = elementsP.size();
+            System.out.println("Cantidad de lineas: " +   cuerpo.split("\n").length);
             System.out.println("Cantidad de parrafos: " + cant_parrafos);
             System.out.println("Cantidad de imagenes: " + cant_img);
 
@@ -67,7 +67,7 @@ public class Main {
         cantGet = formElement.size();
         System.out.println("Formularios con el metodo GET: " + cantGet);
 
-        
+
         for (Element element: document.getElementsByTag("form").forms()) {
             String metodo = element.attr("method");
             Elements tipoPost = element.getElementsByAttributeValueContaining("method", "post");
